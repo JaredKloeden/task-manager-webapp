@@ -1,0 +1,414 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: lightgrey;
+  background-image: url("background.jpg");
+  background-size:cover;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.heading{
+  background-color: steelblue;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width:103%;
+  height:190px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border-bottom:solid;
+  border-color:navy;
+}
+
+.divider{
+  position:absolute;
+  top:0px;
+  left:0px;
+  color: black;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.logo {
+  width: 190px;
+  height: 190px;
+}
+
+.main_head{
+  color: black;
+  font-size:50px;
+  font-family: "Lucida Console", Courier, monospace;
+}
+
+.logout{
+  position:absolute;
+  right:70px;
+  top:140px;
+  width:80px;
+  height:40px;
+  cursor: pointer;
+  z-index:1;
+}
+
+.menu{
+  position:absolute;
+  top:190px;
+  left:0px;
+  width:10%;
+  height:100%;
+}
+
+.menu_button{
+  border: none;
+  background-color:lightblue;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  width:100%;
+  height:10%;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  z-index:10;
+  font-size:20px;
+  font-family: "Lucida Console", Courier, monospace;
+
+}
+
+.current_menu{
+  background-color:lightyellow;
+}
+
+.menu_button:hover{
+  background-color:darkblue;
+  color: white;
+  width:140%;
+  height:15%;
+  z-index:100;
+}
+
+.filler {
+  position: absolute;
+  background-color: lightblue;
+  border:none;
+  border-right:solid;
+  height:100%;
+  left:0px;
+  bottom:0px;
+  width:100%;
+  z-index:-1;
+}
+
+.time{
+  position:absolute;
+  right:200px;
+  top:165px;
+  font-size:20px;
+  font-family:georgia;
+}
+
+.footer{
+  position:absolute;
+  bottom:5%;
+  left: 15%;
+  color: black;
+  background-color:black;
+  width:80%;
+  height:3px;
+}
+
+.content {
+  position: absolute;
+  left:15%;
+  top:210px;
+  width:90%;
+  height:90%;
+  font-family: "Lucida Console", Courier, monospace;
+  color:black;
+}
+
+.content_main {
+  position: absolute;
+  left:11%;
+  top:210px;
+  width:90%;
+  height:90%;
+  font-family: "Lucida Console", Courier, monospace;
+  color:black;
+}
+
+.login {
+  position:absolute;
+  left:44.5%;
+  top:46%;
+  width:200px;
+  height:100px;
+  cursor: pointer;
+  z-index:1;
+}
+
+.login_info {
+  position: absolute;
+  left:45%;
+  top:35%;
+}
+
+.login_filler {
+  position:absolute;
+  background-color:darkgrey;
+  border:solid;
+  left: 42%;
+  top: 30%;
+  width:290px;
+  height:270px;
+  z-index:-1;
+}
+
+hr{
+  background-color:black;
+}
+
+.task_window{
+  width:320px;
+  height:220px;
+  background-color:darkgrey;
+  border:solid;
+  margin:50px 0px 0px 70px;
+  display:block;
+  float: left;
+  cursor:pointer;
+  z-index:2;
+  transition-duration:0.5s;
+}
+
+.task_window:hover{
+  background-color:grey;
+}
+
+.task_window_title {
+  text-align:center;
+}
+
+.task_window_description{
+  overflow:hidden;
+  white-space:pre-wrap;
+  text-overflow:ellipsis;
+  text-align:center;
+  height:140px;
+}
+
+.manage_menu{
+  font-size:20px;
+  cursor:pointer;
+  color:darkblue;
+  transition-duration:0.5s;
+  z-index:3;
+}
+
+.manage_menu:hover{
+  color:red;
+  font-size:22px;
+}
+
+.content_manage{
+  position: absolute;
+  left:15%;
+  top:230px;
+  width:90%;
+  height:90%;
+  font-family: "Lucida Console", Courier, monospace;
+  font-size:20px;
+  color:black;
+}
+
+.content_manage_table{
+  position:absolute;
+  width:80%;
+  height:100%;
+  left:10%;
+  top:0px;
+  padding:10px;
+  background-color:lightblue;
+}
+
+.content_manage_forms{
+  width:200px;
+  height:30px;
+  margin: 0px 0px 20px 0px;
+}
+
+.manage_due_date{
+  width:180px;
+}
+
+#short_description{
+  width:400px;
+  height:70px;
+  resize:none;
+}
+
+#long_description{
+  width:500px;
+  height:100px;
+  resize:none;
+}
+
+#people{
+  width:100px;
+  height:200px;
+}
+
+#post_button{
+  width:100px;
+  height:40px;
+}
+
+.profile_picture{
+  position:absolute;
+  left:0%;
+  top:0%;
+  width:250px;
+  height:250px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  border-radius:60%;
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.profile_picture:hover{
+  border-radius:0%;
+}
+
+.profile_top{
+  position:absolute;
+  left:20%;
+  top:4%;
+  width:70%;
+  height:400px;
+  display:inline-block;
+  font-size:25px;
+}
+
+.profile_content{
+  position: absolute;
+  left:15%;
+  top:210px;
+  width:90%;
+  height:90%;
+  font-family: "Lucida Console", Courier, monospace;
+  color:black;
+}
+
+.profile_bottom{
+  position:absolute;
+  left:0%;
+  top:300px;
+  font-size:20px;
+}
+
+#edit_button{
+  cursor:pointer;
+  width:150px;
+  height:50px;
+}
+
+#edit_button_cancel{
+  cursor:pointer;
+  width:150px;
+  height:50px;
+}
+
+#edit_button_submit{
+  cursor:pointer;
+  width:150px;
+  height:50px;
+}
+
+#profile_bio{
+  resize:none;
+  margin: 0px 0px 20px 0px;
+}
+
+#profile_education{
+  resize:none;
+  margin: 0px 0px 20px 0px;
+  width:300px;
+  height:50px;
+}
+
+#profile_age{
+  resize:none;
+  margin: 0px 0px 20px 0px;
+}
+
+#profile_hobbies{
+  resize:none;
+  margin: 0px 0px 20px 0px;
+}
+
+#profile_availability{
+  resize:none;
+  margin: 0px 0px 20px 0px;
+}
+
+#account_create_div{
+  position:absolute;
+  left:190px;
+  top:220px;
+}
+
+.g-signin2{
+  position:absolute;
+  left:46.5%;
+  top:600px;
+}
+
+.group_member_names{
+  margin:0px 0px 0px 20px;
+}
+
+.group_task_name{
+  cursor:pointer;
+}
+
+.group_task_name:hover{
+  color:darkblue;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.todo_title {
+  margin: 10px 0px 0px 0px;
+  font-size:30px;
+}
+
+.todo_button {
+  margin: 10px 0px 30px 0px;
+  width:200px;
+  height:40px;
+  cursor: pointer;
+}
+
+.manage_completed_button {
+  margin: 10px 0px 30px 0px;
+  width:200px;
+  height:30px;
+  cursor: pointer;
+}
+
+.groups_people{
+  font-size:15px;
+  cursor:pointer;
+  color:black;
+  transition-duration:0.2s;
+  z-index:3;
+}
+
+.groups_people:hover{
+  color:darkblue;
+  font-size:16px;
+}

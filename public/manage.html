@@ -1,0 +1,96 @@
+<html>
+
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+  <meta name="google-signin-client_id" content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
+</head>
+<body>
+<div id="manage_main">
+
+<header class="heading">
+    <div class="main_head">
+    <img class="logo" src="images/logo.jpg" alt="logo">Manage<div class="time" v-cloak>Current date: {{ date }} </div><button onclick="logout(); signOut()"  class="logout">Logout</button>
+    </div>
+</header>
+
+<div class="menu">
+    <button onclick="home()" class="menu_button">Home</button>
+    <button onclick="profile()" class="menu_button">Profile</button>
+    <button onclick="todo()" class="menu_button">To-do</button>
+    <button onclick="groups()" class="menu_button">Groups</button>
+    <button onclick="manage()" class="menu_button current_menu">Manage</button>
+    <div class="filler"></div>
+</div>
+
+<div class="content_manage">
+
+<div>
+    <div class="manage_menu" v-on:click="create_new_press=true, manage_press=false">
+    Create new
+    </div>
+    <br>
+    <div class="manage_menu" v-on:click="create_new_press=false, manage_press=true">
+    Manage
+    </div>
+    <br>
+</div>
+
+<div class="content_manage_table" v-if="create_new_press" v-cloak>
+<form id="new_post_form">
+    <label for="task_name">Task name</label><br>
+    <input type="text" class="content_manage_forms" id="task_name" maxlength=30>
+    <br>
+    <br>
+    <label for="short_description">Short description</label><br>
+    <textarea type="text" class="content_manage_forms" id="short_description" row="30" col="20" maxlength=200></textarea>
+    <br>
+    <br>
+    <label for="long_description">Long description</label><br>
+    <textarea type="text" class="content_manage_forms" id="long_description" row="30" col="20" maxlength=1000></textarea>
+    <br>
+    <br>
+    <label for="due_date">Due date</label><br>
+    <input type="date" class="content_manage_forms manage_due_date" id="due_date">
+    <br>
+    <br>
+    <label for="people">People</label>
+    <br>
+
+    <select id="myid" ref="myid" multiple>
+        <option v-for='(users, index) in users' v-bind:value="users.id">{{ users.first_name }} {{ users.last_name }}</option>
+    </select>
+
+    <br>
+    <br>
+    <button type="button" id="post_button" onclick="post_check()">Post</button>
+</form>
+</div>
+
+
+<div class="content_manage_table" v-if="manage_press" v-cloak>
+
+<div v-for="(tasks, index) in completed_tasks">
+
+<h2 @click="swal(tasks.long_description)" class="group_task_name">{{ tasks.name }}  |  {{ tasks.creation_date }} - {{ tasks.due_date }}</h2>
+<button class="manage_completed_button" @click="delete_task(tasks.id)" v-bind:id="tasks.id">Approve task completion</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+</div>
+<script src="javascripts/ajax.js"></script>
+<script src="javascripts/manage_ajax.js" defer></script>
+<script src="javascripts/google.js"></script>
+</body>
+</html>

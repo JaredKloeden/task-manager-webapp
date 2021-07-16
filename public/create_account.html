@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="javascripts/misc_ajax.js" defer></script>
+  <script src="javascripts/ajax.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+<div id="vuemain">
+
+<header class="heading">
+    <div class="main_head" id="temp_id">
+    <img class="logo" src="images/logo.jpg" alt="logo">Account creation<button onclick="login()" class="logout">Return to login</button>
+    </div>
+</header>
+
+<form id="account_create_div">
+    <label for="username">Username</label><br>
+    <input type="text" class="content_manage_forms" id="username" maxlength=20>
+    <br>
+    <label for="password">Password</label><br>
+    <input type="password" class="content_manage_forms" id="password" maxlength=40>
+    <br>
+    <label for="first_name">First name</label><br>
+    <input type="text" class="content_manage_forms" id="first_name" maxlength=30>
+    <br>
+    <label for="last_name">Last name</label><br>
+    <input type="text" class="content_manage_forms" id="last_name" maxlength=30>
+    <br>
+    <label for="date_of_birth">Date of birth</label><br>
+    <input type="date" class="content_manage_forms manage_due_date" id="date_of_birth">
+    <br>
+    <label for="email">Email address</label><br>
+    <input type="text" class="content_manage_forms" id="email" maxlength=100>
+    <br>
+
+    <button type="button" id="create_account_button" onclick="create_account()">Create account</button>
+</form>
+
+</div>
+</body>
+</html>

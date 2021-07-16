@@ -1,0 +1,52 @@
+<html>
+
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="javascripts/ajax.js" defer></script>
+  <script src="javascripts/home_ajax.js" defer></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+  <meta name="google-signin-client_id" content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
+</head>
+<body>
+<div id="vuemain_page">
+
+<header class="heading">
+    <div class="main_head" id="temp_id">
+    <img class="logo" src="images/logo.jpg" alt="logo">Home<div class="time" v-cloak>Current date: {{ date }} </div><button onclick="logout(); signOut()" class="logout">Logout
+    </div>
+
+</header>
+
+<div class="menu">
+    <button onclick="home()" class="menu_button current_menu">Home</button>
+    <button onclick="profile()" class="menu_button">Profile</button>
+    <button onclick="todo()" class="menu_button">To-do</button>
+    <button onclick="groups()" class="menu_button">Groups</button>
+    <button onclick="manage()" class="menu_button">Manage</button>
+    <div class="filler"></div>
+</div>
+
+<div class="content_main">
+
+<div v-for="(tasks, index) in tasks">
+    <div class="task_window" @click="swal(tasks.long_description)">
+    <div class="task_window_title">
+    <h4 v-cloak>{{ tasks.name }}</h4>
+    <h4 v-cloak>Due date: {{ tasks.due_date }}</h4>
+    </div>
+    <hr>
+    <p class="task_window_description" v-cloak>{{ tasks.short_description }}</p>
+    </div>
+</div>
+
+
+</div>
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="javascripts/google.js"></script>
+</body>
+</html>
