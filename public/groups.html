@@ -4,47 +4,54 @@
   <title>Home</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-  <meta name="google-signin-client_id" content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
+  <meta name="google-signin-client_id"
+    content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
 </head>
+
 <body>
-<div id="vuegroups">
+  <div id="vuegroups">
 
-<header class="heading">
-    <div class="main_head">
-    <img class="logo" src="images/logo.jpg" alt="logo">Groups<div class="time" v-cloak>Current date: {{ date }} </div><button onclick="logout(), signOut()"  class="logout">Logout</button>
+    <header class="heading">
+      <div class="main_head">
+        <img class="logo" src="images/logo.jpg" alt="logo">Groups<div class="time" v-cloak>Current date: {{ date }}
+        </div><button onclick="logout(), signOut()" class="logout">Logout</button>
+      </div>
+    </header>
+
+    <div class="menu">
+      <button onclick="home()" class="menu_button">Home</button>
+      <button onclick="profile()" class="menu_button">Profile</button>
+      <button onclick="todo()" class="menu_button">To-do</button>
+      <button onclick="groups()" class="menu_button current_menu">Groups</button>
+      <button onclick="manage()" class="menu_button">Manage</button>
+      <div class="filler"></div>
     </div>
-</header>
 
-<div class="menu">
-    <button onclick="home()" class="menu_button">Home</button>
-    <button onclick="profile()" class="menu_button">Profile</button>
-    <button onclick="todo()" class="menu_button">To-do</button>
-    <button onclick="groups()" class="menu_button current_menu">Groups</button>
-    <button onclick="manage()" class="menu_button">Manage</button>
-    <div class="filler"></div>
-</div>
+    <div class="content">
+      <h1 id="temp_id" v-cloak>Groups {{ num_tasks }}</h1>
+      <hr>
 
-<div class="content">
-<h1  id="temp_id" v-cloak>Groups {{ num_tasks }}</h1>
-<hr>
+      <div v-for='(taskname, index) in tasks[0]'>
+        <h2 @click="swal(taskname.long_description)" class="group_task_name" v-cloak>{{ taskname.name }} | Due: {{
+          taskname.due_date }}</h2>
+        <p v-for='(people, index2) in assignments[index]' class="group_member_names" v-cloak>{{ people.first_name }} {{
+          people.last_name }}</p>
+      </div>
 
-<div v-for='(taskname, index) in tasks[0]'>
-<h2 @click="swal(taskname.long_description)" class="group_task_name" v-cloak>{{ taskname.name }}  |  Due: {{ taskname.due_date }}</h2>
-<p v-for='(people, index2) in assignments[index]' class="group_member_names" v-cloak>{{ people.first_name }} {{ people.last_name }}</p>
-</div>
+      <br>
+      <h1 v-cloak>People {{ num_users }}</h1>
+      <hr>
+      <p v-for='people in tasks[1]' @click="profile_redirect(people.username)" class="groups_people" v-cloak>{{
+        people.first_name }} {{ people.last_name }}</p>
+    </div>
 
-<br>
-<h1 v-cloak>People {{ num_users }}</h1>
-<hr>
-<p v-for='people in tasks[1]' @click="profile_redirect(people.username)" class="groups_people" v-cloak>{{ people.first_name }} {{ people.last_name }}</p>
-</div>
-
-</div>
-<script src="javascripts/ajax.js"></script>
-<script src="javascripts/groups_ajax.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="javascripts/google.js"></script>
+  </div>
+  <script src="javascripts/ajax.js"></script>
+  <script src="javascripts/groups_ajax.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="javascripts/google.js"></script>
 </body>
+
 </html>

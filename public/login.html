@@ -8,55 +8,59 @@
   <script src="javascripts/ajax.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
+  <meta name="google-signin-client_id"
+    content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
 </head>
+
 <body>
-<div id="vuemain">
+  <div id="vuemain">
 
-<header class="heading">
-    <div class="main_head" id="temp_id">
-    <img class="logo" src="images/logo.jpg" alt="logo">Login<button onclick="create_account_redirect()" class="logout">Create account</button>
+    <header class="heading">
+      <div class="main_head" id="temp_id">
+        <img class="logo" src="images/logo.jpg" alt="logo">Login<button onclick="create_account_redirect()"
+          class="logout">Create account</button>
+      </div>
+    </header>
+
+    <button class="login" onclick="login_check()">Press to login</button>
+    <form class="login_info">
+      <label for="username">Username:</label><br>
+      <input type="text" id="username" name="username" value=""><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" value="">
+    </form>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div class="login_filler">
     </div>
-</header>
-
-<button class="login" onclick="login_check()">Press to login</button>
-<form class="login_info">
-  <label for="username">Username:</label><br>
-  <input type="text" id="username" name="username" value=""><br>
-  <label for="password">Password:</label><br>
-  <input type="password" id="password" name="password" value="">
-</form>
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-<div class="login_filler">
-</div>
-</div>
+  </div>
 
   <script>
     function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
+      var profile = googleUser.getBasicProfile();
 
-    var id_token = googleUser.getAuthResponse().id_token;
+      var id_token = googleUser.getAuthResponse().id_token;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tokensignin');
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/tokensignin');
 
-    xhr.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200){
-        location.href = "/home";
-      }
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          location.href = "/home";
+        }
       };
 
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({'idtoken': id_token}));
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({ 'idtoken': id_token }));
 
-  }
+    }
 
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
   </script>
 </body>
+
 </html>

@@ -15,12 +15,12 @@ var dbConnectionPool = mysql.createPool({
 
 var app = express();
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     req.pool = dbConnectionPool;
     next();
 });
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.redirect('/login');
 });
 

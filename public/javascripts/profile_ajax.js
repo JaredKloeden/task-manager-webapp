@@ -1,53 +1,53 @@
-function home(){
+function home() {
     location.href = "/home";
 }
 
-function profile(){
+function profile() {
     var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200){
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             var user = xhttp.responseText;
             location.href = "/profile/" + user;
-            }
-        };
+        }
+    };
 
-        xhttp.open("GET","/current_user",true);
+    xhttp.open("GET", "/current_user", true);
 
-        xhttp.send();
+    xhttp.send();
 }
 
-function todo(){
+function todo() {
     location.href = "/todo";
 }
 
-function groups(){
+function groups() {
     location.href = "/groups";
 }
 
-function notifications(){
+function notifications() {
     location.href = "/notifications";
 }
 
-function manage(){
+function manage() {
 
     var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200){
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             location.href = "/manage";
-            }
-        if (this.readyState == 4 && this.status == 403){
+        }
+        if (this.readyState == 4 && this.status == 403) {
             swal("Sorry, you do not have permissions to access this tab.");
-            }
-        };
+        }
+    };
 
-        xhttp.open("GET","/is_manager",true);
+    xhttp.open("GET", "/is_manager", true);
 
-        xhttp.send();
+    xhttp.send();
 }
 
-function login(){
+function login() {
     location.href = "/login";
 }
 
@@ -55,63 +55,64 @@ var vue_profile = new Vue({
     el: '#vue_profile',
     data: {
         date: '',
-        editing:false,
+        editing: false,
         current_user: '',
         user_data: []
 
-        },
+    },
 
-        mounted() {
+    mounted() {
 
-            var xhttp = new XMLHttpRequest();
+        var xhttp = new XMLHttpRequest();
 
-            xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200){
-            var rows = JSON.parse(xhttp.responseText);
-            vue_profile.current_user=rows[0];
-            vue_profile.user_data=rows[1][0];
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var rows = JSON.parse(xhttp.responseText);
+                vue_profile.current_user = rows[0];
+                vue_profile.user_data = rows[1][0];
             }
         };
 
-            var urlParams = window.location.pathname;
-            var Q = urlParams.split('profile/')[1];
+        var urlParams = window.location.pathname;
+        var Q = urlParams.split('profile/')[1];
 
-            xhttp.open("GET","/profile_data/"+Q,true);
+        xhttp.open("GET", "/profile_data/" + Q, true);
 
-            xhttp.send();
+        xhttp.send();
+    },
+
+    methods: {
+        swal: function (ter) {
+            swal(ter);
         },
 
-        methods: {
-            swal: function(ter){
-                swal(ter);
-            },
+        edit_profile: function () {
 
-            edit_profile: function(){
+            var xhttp = new XMLHttpRequest();
 
-                var xhttp = new XMLHttpRequest();
-
-                xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200){
-                location.reload();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    location.reload();
                 }
-                };
+            };
 
-                xhttp.open("POST","/editprofile",true);
-                xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.send(JSON.stringify({ "bio": document.getElementById("profile_bio").value,
+            xhttp.open("POST", "/editprofile", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify({
+                "bio": document.getElementById("profile_bio").value,
                 "education": document.getElementById("profile_education").value,
                 "hobbies": document.getElementById("profile_hobbies").value,
                 "availability": document.getElementById("profile_availability").value
-                }));
+            }));
 
-            }
         }
+    }
 });
 
-function updatetime(){
+function updatetime() {
     var d = new Date();
-    var date = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + "  " + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-    vue_profile.date=date;
+    var date = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + "  " + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+    vue_profile.date = date;
 }
 
 updatetime();

@@ -1,32 +1,32 @@
-function home(){
+function home() {
     location.href = "/home";
 }
 
-function profile(){
+function profile() {
     location.href = "/profile";
 }
 
-function todo(){
+function todo() {
     location.href = "/todo";
 }
 
-function groups(){
+function groups() {
     location.href = "/groups";
 }
 
-function notifications(){
+function notifications() {
     location.href = "/notifications";
 }
 
-function manage(){
+function manage() {
     location.href = "/manage";
 }
 
-function login(){
+function login() {
     location.href = "/login";
 }
 
-function create_account_redirect(){
+function create_account_redirect() {
     location.href = "/create_account";
 }
 
@@ -36,26 +36,26 @@ var vueinst = new Vue({
         date: '',
         num_users: 0,
         num_tasks: 0,
-        editing:false,
-        profile_bio:"test bio",
-        profile_education:"test education",
-        profile_age:22,
-        profile_hobbies:"test hobby",
-        profile_availability:"test availability",
+        editing: false,
+        profile_bio: "test bio",
+        profile_education: "test education",
+        profile_age: 22,
+        profile_hobbies: "test hobby",
+        profile_availability: "test availability",
 
-        },
+    },
 
-        methods: {
-            swal: function(ter){
-                swal(ter);
-            }
+    methods: {
+        swal: function (ter) {
+            swal(ter);
         }
+    }
 });
 
-function updatetime(){
+function updatetime() {
     var d = new Date();
-    var date = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + "  " + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-    vueinst.date=date;
+    var date = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + "  " + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+    vueinst.date = date;
 }
 
 
@@ -67,30 +67,30 @@ function login_check() {
     var uname = document.getElementById("username").value;
     var pword = document.getElementById("password").value;
 
-    var message="";
-    var check=0;
+    var message = "";
+    var check = 0;
 
-    if (uname==""){
-        message+="Please enter a username\n";
-        check=1;
+    if (uname == "") {
+        message += "Please enter a username\n";
+        check = 1;
     }
 
-    if (pword==""){
-        message+="Please enter a password\n";
-        check=1;
+    if (pword == "") {
+        message += "Please enter a password\n";
+        check = 1;
     }
 
-    if (check==1){
+    if (check == 1) {
         swal(message);
-    }else{
+    } else {
         login_auth();
     }
 }
 
-function create_account(){
-    if (document.getElementById("username").value==""||document.getElementById("password").value==""||document.getElementById("first_name").value==""||document.getElementById("last_name").value==""||document.getElementById("date_of_birth").value==""||document.getElementById("email").value==""){
+function create_account() {
+    if (document.getElementById("username").value == "" || document.getElementById("password").value == "" || document.getElementById("first_name").value == "" || document.getElementById("last_name").value == "" || document.getElementById("date_of_birth").value == "" || document.getElementById("email").value == "") {
         swal("Please fill in all boxes");
-    }else{
+    } else {
         create_account_auth();
     }
 }

@@ -1,86 +1,94 @@
 <html>
 
 <head>
-  <title>Home</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
-  <script src="/../javascripts/profile_ajax.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-  <meta name="google-signin-client_id" content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
+    <title>Home</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/../javascripts/profile_ajax.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    <meta name="google-signin-client_id"
+        content="335947766900-g7sam2plsiq165hq68d3d9oa1q8lralc.apps.googleusercontent.com">
 </head>
+
 <body>
-<div id="vue_profile">
+    <div id="vue_profile">
 
-<header class="heading">
-    <div class="main_head">
-    <img class="logo" src="/../images/logo.jpg" alt="logo">Profile<div class="time" v-cloak>Current date: {{ date }} </div><button onclick="logout(), signOut()"  class="logout">Logout</button>
+        <header class="heading">
+            <div class="main_head">
+                <img class="logo" src="/../images/logo.jpg" alt="logo">Profile<div class="time" v-cloak>Current date: {{
+                    date }} </div><button onclick="logout(), signOut()" class="logout">Logout</button>
+            </div>
+        </header>
+
+        <div class="menu">
+            <button onclick="home()" class="menu_button">Home</button>
+            <button onclick="profile()" class="menu_button current_menu">Profile</button>
+            <button onclick="todo()" class="menu_button">To-do</button>
+            <button onclick="groups()" class="menu_button">Groups</button>
+            <button onclick="manage()" class="menu_button">Manage</button>
+            <div class="filler"></div>
+        </div>
+
+        <div class="profile_content" id="vueprofile">
+            <img src="/../images/default.png" class="profile_picture" alt="profile picture">
+            <div class="profile_top">
+                <div id="full_name" v-cloak>{{ user_data.first_name }} {{ user_data.last_name }}</div>
+                <br>
+                <div v-if="user_data.privleges === 0" id="position" v-cloak>Employee</div>
+                <div v-else v-cloak>Manager</div>
+                <br>
+                <div id="email" v-cloak>{{ user_data.email }}</div>
+                <br>
+                <hr>
+            </div>
+
+            <div class="profile_bottom">
+                <div v-if="!editing" v-cloak>Bio:</div>
+                <br v-if="!editing">
+                <div v-if="!editing" v-cloak>{{ user_data.bio }}</div>
+                <br v-if="!editing">
+                <br v-if="!editing">
+                <div v-if="!editing" v-cloak>Education: {{ user_data.education }}</div>
+                <br v-if="!editing">
+                <div v-if="!editing" v-cloak>Date of birth: {{ user_data.date_of_birth }}</div>
+                <br v-if="!editing">
+                <div v-if="!editing" v-cloak>Hobbies: {{ user_data.hobbies }}</div>
+                <br v-if="!editing">
+                <div v-if="!editing" v-cloak>Availability: {{ user_data.availability }}</div>
+                <br v-if="!editing">
+
+                <form v-if="editing" class="profile_editing_form">
+
+                    <label for="profile_bio" v-cloak>Bio</label><br>
+                    <textarea type="text" id="profile_bio" cols="50" rows="7" v-cloak>{{ user_data.bio }}</textarea>
+                    <br>
+                    <label for="profile_education" v-cloak>Education</label>
+                    <br>
+                    <textarea type="text" id="profile_education" cols="40" rows="6"
+                        v-cloak>{{ user_data.education }}</textarea>
+                    <br>
+                    <label for="profile_hobbies" v-cloak>Hobbies</label>
+                    <br>
+                    <textarea type="text" id="profile_hobbies" cols="40" rows="5"
+                        v-cloak>{{ user_data.hobbies }}</textarea>
+                    <br>
+                    <label for="profile_availability" v-cloak>Availability</label>
+                    <br>
+                    <textarea type="text" id="profile_availability" cols="40" rows="4"
+                        v-cloak>{{ user_data.availability }}</textarea>
+                    <br>
+
+                </form>
+                <button id="edit_button" v-if="!editing && current_user===user_data.username" v-on:click="editing=true"
+                    v-cloak>Edit</button>
+                <button id="edit_button_submit" v-if="editing" @click="edit_profile()" v-cloak>Save</button>
+                <button id="edit_button_cancel" v-if="editing" v-on:click="editing=false" v-cloak>Cancel</button>
+            </div>
+        </div>
     </div>
-</header>
-
-<div class="menu">
-    <button onclick="home()" class="menu_button">Home</button>
-    <button onclick="profile()" class="menu_button current_menu">Profile</button>
-    <button onclick="todo()" class="menu_button">To-do</button>
-    <button onclick="groups()" class="menu_button">Groups</button>
-    <button onclick="manage()" class="menu_button">Manage</button>
-    <div class="filler"></div>
-</div>
-
-<div class="profile_content" id="vueprofile">
-    <img src="/../images/default.png" class="profile_picture" alt="profile picture">
-    <div class="profile_top">
-    <div id="full_name" v-cloak>{{ user_data.first_name }} {{ user_data.last_name }}</div>
-    <br>
-    <div v-if="user_data.privleges === 0" id="position" v-cloak>Employee</div>
-    <div v-else v-cloak>Manager</div>
-    <br>
-    <div id="email" v-cloak>{{ user_data.email }}</div>
-    <br>
-    <hr>
-    </div>
-
-    <div class="profile_bottom">
-    <div v-if="!editing" v-cloak>Bio:</div>
-     <br v-if="!editing">
-    <div v-if="!editing" v-cloak>{{ user_data.bio }}</div>
-     <br v-if="!editing">
-     <br v-if="!editing">
-    <div v-if="!editing" v-cloak>Education: {{ user_data.education }}</div>
-     <br v-if="!editing">
-    <div v-if="!editing" v-cloak>Date of birth: {{ user_data.date_of_birth }}</div>
-     <br v-if="!editing">
-    <div v-if="!editing" v-cloak>Hobbies: {{ user_data.hobbies }}</div>
-     <br v-if="!editing">
-    <div v-if="!editing" v-cloak>Availability: {{ user_data.availability }}</div>
-     <br v-if="!editing">
-
-    <form v-if="editing" class="profile_editing_form">
-
-        <label for="profile_bio" v-cloak>Bio</label><br>
-        <textarea type="text" id="profile_bio" cols="50" rows="7" v-cloak>{{ user_data.bio }}</textarea>
-        <br>
-        <label for="profile_education" v-cloak>Education</label>
-        <br>
-        <textarea type="text" id="profile_education" cols="40" rows="6" v-cloak>{{ user_data.education }}</textarea>
-        <br>
-        <label for="profile_hobbies" v-cloak>Hobbies</label>
-        <br>
-        <textarea type="text" id="profile_hobbies" cols="40" rows="5" v-cloak>{{ user_data.hobbies }}</textarea>
-        <br>
-        <label for="profile_availability" v-cloak>Availability</label>
-        <br>
-        <textarea type="text" id="profile_availability" cols="40" rows="4" v-cloak>{{ user_data.availability }}</textarea>
-        <br>
-
-    </form>
-    <button id="edit_button" v-if="!editing && current_user===user_data.username" v-on:click="editing=true" v-cloak>Edit</button>
-    <button id="edit_button_submit" v-if="editing" @click="edit_profile()" v-cloak>Save</button>
-    <button id="edit_button_cancel" v-if="editing" v-on:click="editing=false" v-cloak>Cancel</button>
-    </div>
-</div>
-</div>
-<script src="/../javascripts/ajax.js"></script>
-<script src="/../javascripts/google.js"></script>
+    <script src="/../javascripts/ajax.js"></script>
+    <script src="/../javascripts/google.js"></script>
 </body>
+
 </html>

@@ -1,52 +1,52 @@
-function home(){
+function home() {
     location.href = "/home";
 }
 
-function profile(){
+function profile() {
     var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200){
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             var user = xhttp.responseText;
             location.href = "/profile/" + user;
-            }
-        };
+        }
+    };
 
-        xhttp.open("GET","/current_user",true);
+    xhttp.open("GET", "/current_user", true);
 
-        xhttp.send();
+    xhttp.send();
 }
 
-function todo(){
+function todo() {
     location.href = "/todo";
 }
 
-function groups(){
+function groups() {
     location.href = "/groups";
 }
 
-function notifications(){
+function notifications() {
     location.href = "/notifications";
 }
 
-function manage(){
+function manage() {
     var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200){
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             location.href = "/manage";
-            }
-        if (this.readyState == 4 && this.status == 403){
-        swal("Sorry, you do not have permissions to access this tab.");
-            }
-        };
+        }
+        if (this.readyState == 4 && this.status == 403) {
+            swal("Sorry, you do not have permissions to access this tab.");
+        }
+    };
 
-        xhttp.open("GET","/is_manager",true);
+    xhttp.open("GET", "/is_manager", true);
 
-        xhttp.send();
+    xhttp.send();
 }
 
-function login(){
+function login() {
     location.href = "/login";
 }
 
@@ -55,71 +55,71 @@ var vue_todo = new Vue({
     data: {
         date: '',
         tasks: []
-        },
+    },
 
-        mounted() {
-            //GET request for logout
+    mounted() {
+        //GET request for logout
 
-            var xhttp = new XMLHttpRequest();
+        var xhttp = new XMLHttpRequest();
 
-            xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200){
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
                 var rows = JSON.parse(xhttp.responseText);
                 vue_todo.tasks = rows;
             }
+        };
+
+        xhttp.open("GET", "/todo_tasks", true);
+
+        xhttp.send();
+    },
+
+
+    methods: {
+        swal: function (ter) {
+            swal(ter);
+        },
+
+        mark_complete: function (i) {
+
+            this.tasks[i].progress = 1;
+
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    vue_todo.swal("Marked as completed");
+                }
             };
 
-              xhttp.open("GET","/todo_tasks",true);
+            xhttp.open("POST", "/mark_complete", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify({ "id": this.tasks[i].id }));
+        },
 
-              xhttp.send();
-            },
+        unmark_complete: function (i) {
 
+            this.tasks[i].progress = 0;
 
-        methods: {
-            swal: function(ter){
-                swal(ter);
-            },
+            var xhttp = new XMLHttpRequest();
 
-            mark_complete: function(i){
-
-                this.tasks[i].progress=1;
-
-                var xhttp = new XMLHttpRequest();
-
-                xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200){
-                    vue_todo.swal("Marked as completed");
-                    }
-                };
-
-                xhttp.open("POST", "/mark_complete", true);
-                xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.send(JSON.stringify({ "id": this.tasks[i].id }));
-            },
-
-            unmark_complete: function(i){
-
-                this.tasks[i].progress=0;
-
-                var xhttp = new XMLHttpRequest();
-
-                xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200){
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
                     console.log("unmarked task");
-                    }
-                };
+                }
+            };
 
-                xhttp.open("POST", "/unmark_complete", true);
-                xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.send(JSON.stringify({ "id": this.tasks[i].id }));
-            }
+            xhttp.open("POST", "/unmark_complete", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify({ "id": this.tasks[i].id }));
         }
+    }
 });
 
-function updatetime(){
+function updatetime() {
     var d = new Date();
-    var date = d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + "  " + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-    vue_todo.date=date;
+    var date = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + "  " + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+    vue_todo.date = date;
 }
 
 
